@@ -9,4 +9,4 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-mycursor.execute("CREATE TABLE mammiferi (id char(3) PRIMARY KEY, nome_proprio varchar(20),razza varchar(25),peso int, eta int)")
+mycursor.execute("CREATE TABLE mammiferi (id char(3) PRIMARY KEY, nome_proprio varchar(20),razza varchar(25),peso int(100), eta int(100))")

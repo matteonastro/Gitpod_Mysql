@@ -13,17 +13,17 @@ def creazione():
 
 
 def aggiungi_animali():
-    #configurazione per la connessione al database
+    
     mydb = mysql.connector.connect(
       host="localhost",
       user="root",
       password="",
       database="Animali"
     )
-    #cursore che ci permette di eseguire i comandi su mysql
+   
     mycursor = mydb.cursor()
 
-    #ciclo for
+    
     for i in range(2):
       id=input("inserisci id: ")
       nome=input("inserisci nome: ")
@@ -31,27 +31,25 @@ def aggiungi_animali():
       peso=input("inserisci peso: ")
       eta=input("inserisci età: ")
 
-      #sintassi per inserire una tupla
+     
       sql = "INSERT INTO mammiferi (id, nome, razza, peso, eta) VALUES (%s, %s, %s, %s, %s)"
     
       val = (id, nome, razza, peso, eta)
 
-      #esegue il comando
       mycursor.execute(sql, val)
 
-      #applica le modifiche apportate al database, le salva
       mydb.commit()
 
-      #restituisce il numero di righe modificate
+      
       print(mycursor.rowcount, "record inserted.")
 
 def inserimento_Valori():
   mycursor = mydb.cursor()
-  sql = "INSERT INTO mammiferi (Id,Nome,Razza,Peso,Eta) VALUES (%s,%s,%s,%s,%s)"
-  val =[ ("111", "Minasi", "serpente", 44, 12)
-  ("222", "Matteo", "elefante", 33, 65)
-  ("333", "Simone", "rana", 27, 11)
-  ("444", "Lorenzo", "leone", 49, 5)
+  sql = "INSERT INTO mammiferi (id,nome,razza,peso,eta) VALUES (%s,%s,%s,%s,%s)"
+  val =[ ("111", "Minasi", "serpente", 44, 12),
+  ("222", "Matteo", "elefante", 33, 65),
+  ("333", "Simone", "rana", 27, 11),
+  ("444", "Lorenzo", "leone", 49, 5),
   ("555", "Gianluca", "gru", 22, 67)
   ]
 
@@ -70,5 +68,34 @@ def visualizza_Animali():
     for x in myresult:
         print(x)
 
-inserimentoval()
-visualizza_Animali()
+def visualizza_peso():
+      mycursor = mydb.cursor()
+
+      mycursor.execute("SELECT nome FROM mammiferi WHERE peso <= 2")
+
+      myresult = mycursor.fetchall()
+      print(myresult)
+
+def cancella_animale():
+    mycursor = mydb.cursor()
+    y=input("inserisci id")
+    sql = "DELETE FROM mammiferi WHERE id = (%s)"
+
+    mycursor.execute(sql,str(y))
+
+    mydb.commit()
+
+
+
+def main():
+    x=int(input(" 1 per inserire gli animali animali n(5), 2 per visualizzare tutti gli animali, 3 per visualizzare gli animali che pesano 2 o più kg, 4 per eliminare un'animale "))
+    if x==1 :
+       inserimento_Valori()
+    if x==2:
+        visualizza_Animali()
+    if x==3:
+        visualizza_peso()
+    if x==4:
+        cancella_animale()
+
+main()
