@@ -76,16 +76,6 @@ def visualizza_peso():
       myresult = mycursor.fetchall()
       print(myresult)
 
-def cancella_animale():
-    mycursor = mydb.cursor()
-    y=input("inserisci id")
-    sql = "DELETE FROM mammiferi WHERE id = (%s)"
-
-    mycursor.execute(sql,str(y))
-
-    mydb.commit()
-
-
 
 def main():
     x=int(input(" 1 per inserire gli animali animali n(5), 2 per visualizzare tutti gli animali, 3 per visualizzare gli animali che pesano 2 o più kg, 4 per eliminare un'animale "))
@@ -96,6 +86,6 @@ def main():
     if x==3:
         visualizza_peso()
     if x==4:
-        cancella_animale()
+       print("da finire")
 
 main()
