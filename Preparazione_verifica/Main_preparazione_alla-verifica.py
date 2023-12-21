@@ -6,10 +6,10 @@ mydb = mysql.connector.connect(
   password="",
   
 )
+def creazione():
+  mycursor = mydb.cursor()
 
-mycursor = mydb.cursor()
-
-mycursor.execute("CREATE DATABASE Animali")
+  mycursor.execute("CREATE DATABASE Animali")
 
 
 def aggiungi_animali():
@@ -45,5 +45,30 @@ def aggiungi_animali():
       #restituisce il numero di righe modificate
       print(mycursor.rowcount, "record inserted.")
 
+def inserimento_Valori():
+  mycursor = mydb.cursor()
+  sql = "INSERT INTO mammiferi (Id,Nome,Razza,Peso,Eta) VALUES (%s,%s,%s,%s,%s)"
+  val =[ ("111", "Minasi", "serpente", 44, 12)
+  ("222", "Matteo", "elefante", 33, 65)
+  ("333", "Simone", "rana", 27, 11)
+  ("444", "Lorenzo", "leone", 49, 5)
+  ("555", "Gianluca", "gru", 22, 67)
+  ]
+
+  mycursor.executemany(sql, val)
+ 
+  mydb.commit()
 
 
+def visualizza_Animali():
+    mycursor = mydb.cursor()
+
+    mycursor.execute("SELECT * FROM mammiferi")
+
+    myresult = mycursor.fetchall()
+
+    for x in myresult:
+        print(x)
+
+inserimentoval()
+visualizza_Animali()
