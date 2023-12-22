@@ -4,23 +4,15 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="",
-  
+  database="Animali"
 )
-def creazione():
-  mycursor = mydb.cursor()
-
-  mycursor.execute("CREATE DATABASE Animali")
+   
+# CREATE DATABASE Animali;
 
 
 def aggiungi_animali():
     
-    mydb = mysql.connector.connect(
-      host="localhost",
-      user="root",
-      password="",
-      database="Animali"
-    )
-   
+
     mycursor = mydb.cursor()
 
     
@@ -44,16 +36,17 @@ def aggiungi_animali():
       print(mycursor.rowcount, "record inserted.")
 
 def inserimento_Valori():
+  
   mycursor = mydb.cursor()
-  sql = "INSERT INTO mammiferi (id,nome,razza,peso,eta) VALUES (%s,%s,%s,%s,%s)"
-  val =[ ("111", "Minasi", "serpente", 44, 12),
+  sql = "INSERT INTO mammiferi (id,nome_proprio,razza,peso,eta) VALUES (%s,%s,%s,%s,%s)"
+  valori =[ ("111", "Minasi", "serpente", 44, 12),
   ("222", "Matteo", "elefante", 33, 65),
   ("333", "Simone", "rana", 27, 11),
   ("444", "Lorenzo", "leone", 49, 5),
   ("555", "Gianluca", "gru", 22, 67)
   ]
 
-  mycursor.executemany(sql, val)
+  mycursor.executemany(sql, valori)
  
   mydb.commit()
 
@@ -71,7 +64,7 @@ def visualizza_Animali():
 def visualizza_peso():
       mycursor = mydb.cursor()
 
-      mycursor.execute("SELECT nome FROM mammiferi WHERE peso <= 2")
+      mycursor.execute("SELECT nome_proprio FROM mammiferi WHERE peso <= 2")
 
       myresult = mycursor.fetchall()
       print(myresult)
